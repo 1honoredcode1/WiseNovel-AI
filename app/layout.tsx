@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Serif, Mona_Sans } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import NavBar from "@/components/NavBar";
 
@@ -19,7 +20,7 @@ const monaSans = Mona_Sans({
 export const metadata: Metadata = {
   title: "WiseNovel AI",
   description:
-    "Transform your books into an interactive AI conversations. Upload any PDF of a book, and chat with as if talking to a real person",
+    "Transform your books into interactive AI conversations. Upload any PDF of a book, and chat with it as if talking to a real person",
 };
 
 export default function RootLayout({
@@ -28,13 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${ibmPlexSerif.variable} ${monaSans.variable} relative font-sans antialiased `}
-      >
-        <NavBar />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body
+          className={`${ibmPlexSerif.variable} ${monaSans.variable} relative font-sans antialiased`}
+        >
+          <NavBar />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
