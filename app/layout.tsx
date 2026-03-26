@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Serif, Mona_Sans } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
+
 import "./globals.css";
-import NavBar from "@/components/NavBar";
+import Navbar from "@/components/NavBar";
 
 const ibmPlexSerif = IBM_Plex_Serif({
   variable: "--font-ibm-plex-serif",
@@ -18,9 +19,9 @@ const monaSans = Mona_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "WiseNovel AI",
+  title: "WiseNovel AI | Your AI-Powered Book Companion",
   description:
-    "Transform your books into interactive AI conversations. Upload any PDF of a book, and chat with it as if talking to a real person",
+    "Transform your books into interactive AI conversations. Upload PDFs, and chat with your books using voice.",
 };
 
 export default function RootLayout({
@@ -34,7 +35,7 @@ export default function RootLayout({
         <body
           className={`${ibmPlexSerif.variable} ${monaSans.variable} relative font-sans antialiased`}
         >
-          <NavBar />
+          <Navbar />
           {children}
         </body>
       </html>
