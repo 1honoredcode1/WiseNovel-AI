@@ -122,15 +122,12 @@ export function useVapi(book: IBook) {
 
         // End session tracking
         if (sessionIdRef.current) {
-          // Capture duration at cleanup time
-          const endDuration = durationRef.current;
-          endVoiceSession(sessionIdRef.current, endDuration).catch((err) =>
-            console.error("Failed to end voice session:", err),
+          endVoiceSession(sessionIdRef.current, durationRef.current).catch(
+            (err) => console.error("Failed to end voice session:", err),
           );
           sessionIdRef.current = null;
         }
 
-        // Always reset start time
         startTimeRef.current = null;
       },
 
@@ -209,10 +206,9 @@ export function useVapi(book: IBook) {
 
         // End session tracking on error
         if (sessionIdRef.current) {
-          // Capture duration at cleanup time
-          const endDuration = durationRef.current;
-          endVoiceSession(sessionIdRef.current, endDuration).catch((err) =>
-            console.error("Failed to end voice session on error:", err),
+          endVoiceSession(sessionIdRef.current, durationRef.current).catch(
+            (err) =>
+              console.error("Failed to end voice session on error:", err),
           );
           sessionIdRef.current = null;
         }
@@ -239,7 +235,6 @@ export function useVapi(book: IBook) {
           );
         }
 
-        // Always reset start time
         startTimeRef.current = null;
       },
     };
@@ -253,10 +248,9 @@ export function useVapi(book: IBook) {
       // End active session on unmount
       if (sessionIdRef.current) {
         getVapi().stop();
-        // Capture duration at cleanup time
-        const endDuration = durationRef.current;
-        endVoiceSession(sessionIdRef.current, endDuration).catch((err) =>
-          console.error("Failed to end voice session on unmount:", err),
+        endVoiceSession(sessionIdRef.current, durationRef.current).catch(
+          (err) =>
+            console.error("Failed to end voice session on unmount:", err),
         );
         sessionIdRef.current = null;
       }
@@ -265,10 +259,8 @@ export function useVapi(book: IBook) {
         getVapi().off(event as keyof typeof handlers, handler as () => void);
       });
       if (timerRef.current) clearInterval(timerRef.current);
-      // Always reset start time
-      startTimeRef.current = null;
     };
-  }, [maxDurationRef, durationRef]);
+  }, []);
 
   const start = useCallback(async () => {
     if (!userId) {

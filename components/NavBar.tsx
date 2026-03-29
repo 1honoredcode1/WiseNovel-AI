@@ -16,6 +16,7 @@ const NavBar = () => {
   const navItems = [
     { label: "Library", href: "/" },
     { label: "Add New", href: "/books/new" },
+    { label: "Subscriptions", href: "/subscriptions" },
   ];
 
   const pathname = usePathname();
