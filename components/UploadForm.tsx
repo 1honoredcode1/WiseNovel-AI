@@ -146,16 +146,24 @@ const UploadForm = () => {
       );
 
       if (!segments.success) {
-        toast.error("Failed to save book segments");
-        throw new Error("Failed to save book segments");
+        toast.error(
+          "Book was created, but some content failed to process. Opening the book page.",
+        );
+        form.reset();
+        router.push(`/books/${book.data.slug}`);
+        return;
       }
 
       form.reset();
-      router.push("/");
+      router.push(`/books/${book.data.slug}`);
     } catch (error) {
       console.error(error);
 
-      toast.error("Failed to upload book. Please try again later.");
+      const message =
+        error instanceof Error && error.message
+          ? error.message
+          : "Failed to upload book. Please try again later.";
+      toast.error(message);
     } finally {
       setIsSubmitting(false);
     }
